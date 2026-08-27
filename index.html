@@ -1,0 +1,3748 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>牛来中文学习乐园 - 首页与互动中心</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-color: rgba(244, 247, 246, 0.4);
+            background-blend-mode: overlay;
+            color: #333;
+            max-width: 850px;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: relative;
+            padding-bottom: 80px;
+            transition: background-image 0.5s ease-in-out;
+            overflow: hidden;
+        }
+
+        /* ================= 页面显示控制 ================= */
+
+        .page-view {
+            display: none;
+        }
+
+        .page-view.active {
+            display: block;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .subtitle-tip {
+            text-align: center;
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+
+        /* =========================================================
+           ======================= 首页 ===========================
+           ========================================================= */
+
+        #page-home {
+            position: relative;
+            min-height: 650px;
+            padding: 10px 5px 30px;
+        }
+
+        .home-top-label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+            margin-bottom: 10px;
+            transform: translateY(-5px);
+        }
+
+        .home-top-label span {
+            display: inline-block;
+            background: rgba(255,255,255,0.82);
+            color: #8b5e3c;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transform: rotate(-1deg);
+        }
+
+        .home-title-wrap {
+            text-align: center;
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        .home-title {
+            margin: 0;
+            font-size: 42px;
+            line-height: 1.1;
+            font-weight: 900;
+            letter-spacing: -2px;
+            color: #2d3436;
+            text-shadow:
+                2px 2px 0 rgba(255,255,255,0.9),
+                0 4px 12px rgba(0,0,0,0.12);
+        }
+
+        .home-title .title-orange {
+            color: #e67e22;
+        }
+
+        .home-subtitle {
+            margin-top: 10px;
+            color: #5d534c;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .home-subtitle strong {
+            color: #d35400;
+        }
+
+
+        /* ================= 首页电影小贴纸 ================= */
+
+        .home-sticker {
+            position: absolute;
+            z-index: 5;
+            background: #fff;
+            padding: 7px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+            color: #5b514b;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .sticker-left {
+            left: 35px;
+            top: 92px;
+            transform: rotate(-8deg);
+        }
+
+        .sticker-right {
+            right: 35px;
+            top: 100px;
+            transform: rotate(7deg);
+            background: #fff2d8;
+            color: #a45c1b;
+        }
+
+        .sticker-small {
+            font-size: 10px;
+            padding: 5px 9px;
+        }
+
+
+        /* ================= 首页主视觉 ================= */
+
+        .home-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            padding: 25px 15px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .home-banner {
+            width: min(680px, 100%);
+            position: relative;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,255,255,0.96),
+                    rgba(255,248,232,0.94)
+                );
+            border-radius: 20px;
+            padding: 20px 28px 22px;
+            box-shadow:
+                0 8px 24px rgba(0,0,0,0.10),
+                inset 0 0 0 1px rgba(255,255,255,0.8);
+            border: 1px solid rgba(255,255,255,0.9);
+            overflow: hidden;
+        }
+
+        .home-banner::before {
+            content: "NIU LAI";
+            position: absolute;
+            left: -3px;
+            top: 5px;
+            font-size: 48px;
+            font-weight: 900;
+            color: rgba(230,126,34,0.055);
+            letter-spacing: -3px;
+            pointer-events: none;
+        }
+
+        .home-banner::after {
+            content: "";
+            position: absolute;
+            right: -30px;
+            bottom: -35px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 15px solid rgba(230,126,34,0.08);
+            pointer-events: none;
+        }
+
+        .banner-main-text {
+            position: relative;
+            z-index: 2;
+            font-size: 17px;
+            color: #403a36;
+            font-weight: 800;
+            line-height: 1.7;
+        }
+
+        .banner-main-text .highlight-word {
+            color: #e67e22;
+            font-size: 20px;
+        }
+
+        .banner-small-text {
+            position: relative;
+            z-index: 2;
+            margin-top: 8px;
+            color: #8b8179;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+
+        /* ================= 一些电影感装饰 ================= */
+
+        .film-strip {
+            display: none;
+        }
+
+        .film-hole {
+            width: 14px;
+            height: 9px;
+            background: rgba(45,52,54,0.45);
+            border-radius: 2px;
+        }
+
+        .home-quote {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #6f6259;
+            font-weight: 700;
+            font-style: italic;
+            transform: rotate(-1deg);
+        }
+
+
+        /* ================= 两个功能入口 ================= */
+
+        .home-main-section {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            margin-top: 5px;
+            width: 100%;
+        }
+
+        .menu-card {
+            position: relative;
+            background:
+                linear-gradient(
+                    rgba(255,255,255,0.85),
+                    rgba(255,255,255,0.85)
+                ),
+                url('lying-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            padding: 26px 25px 24px;
+            width: 250px;
+            height: 235px;
+            box-sizing: border-box;
+            cursor: pointer;
+            box-shadow:
+                0 8px 18px rgba(0,0,0,0.11),
+                0 2px 0 rgba(255,255,255,0.9) inset;
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
+            border: 2px solid rgba(255,255,255,0.65);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+        }
+
+        .menu-card::before {
+            content: "";
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(230,126,34,0.07);
+            right: -30px;
+            top: -30px;
+        }
+
+        .menu-card::after {
+            content: "";
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 7px solid rgba(230,126,34,0.06);
+            left: -15px;
+            bottom: -15px;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-8px) rotate(-1deg);
+            border-color: #e67e22;
+            box-shadow:
+                0 14px 28px rgba(0,0,0,0.15),
+                0 8px 22px rgba(230,126,34,0.16);
+        }
+
+        .menu-card:nth-child(2) {
+            transform: rotate(1deg);
+        }
+
+        .menu-card:nth-child(2):hover {
+            transform: translateY(-8px) rotate(2deg);
+        }
+
+        .menu-card-icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            line-height: 1;
+            background: #fff8eb;
+            border-radius: 50%;
+            box-shadow:
+                0 4px 10px rgba(0,0,0,0.08),
+                inset 0 0 0 3px rgba(255,255,255,0.9);
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu-card-title {
+            font-size: 20px;
+            font-weight: 900;
+            color: #2c3e50;
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu-card-desc {
+            font-size: 13px;
+            color: #625a55;
+            line-height: 1.55;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu-card-label {
+            font-size: 10px;
+            font-weight: 900;
+            color: #d35400;
+            background: #fff0d7;
+            border-radius: 20px;
+            padding: 4px 10px;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 2;
+        }
+
+
+        /* ================= 中间一键体验 ================= */
+
+        .center-one-click-wrapper {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .one-click-btn {
+            pointer-events: auto;
+            width: 82px;
+            height: 82px;
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffb14e 0%,
+                    #f28b25 48%,
+                    #d96714 100%
+                );
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 900;
+            box-shadow:
+                0 8px 18px rgba(180,85,10,0.28),
+                inset 0 2px 0 rgba(255,255,255,0.35);
+            border: 4px solid #fff;
+            cursor: pointer;
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+            animation: pulseOneClick 2.8s infinite ease-in-out;
+            text-align: center;
+            line-height: 1.25;
+        }
+
+        .one-click-btn::before {
+            content: "";
+            position: absolute;
+            width: 95px;
+            height: 95px;
+            border: 1px dashed rgba(230,126,34,0.5);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .one-click-btn:hover {
+            transform: scale(1.08) rotate(-3deg);
+            box-shadow:
+                0 10px 25px rgba(230,126,34,0.45),
+                inset 0 2px 0 rgba(255,255,255,0.4);
+        }
+
+        .one-click-btn span:first-child {
+            font-size: 15px;
+        }
+
+        .one-click-btn span:last-child {
+            font-size: 15px;
+        }
+
+        .one-click-tip {
+            pointer-events: auto;
+            font-size: 12px;
+            color: #a24d0c;
+            font-weight: 900;
+            background: rgba(255,248,226,0.97);
+            padding: 5px 10px;
+            border-radius: 12px;
+            box-shadow: 0 3px 7px rgba(0,0,0,0.1);
+            white-space: nowrap;
+            transform: rotate(-2deg);
+        }
+
+        @keyframes pulseOneClick {
+            0% {
+                transform: scale(1);
+                box-shadow:
+                    0 8px 18px rgba(180,85,10,0.28),
+                    0 0 0 0 rgba(230,126,34,0.35);
+            }
+
+            65% {
+                transform: scale(1.04);
+                box-shadow:
+                    0 8px 20px rgba(180,85,10,0.3),
+                    0 0 0 13px rgba(230,126,34,0);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow:
+                    0 8px 18px rgba(180,85,10,0.28),
+                    0 0 0 0 rgba(230,126,34,0);
+            }
+        }
+
+
+        /* ================= 首页底部小信息 ================= */
+
+        .home-bottom-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 8px;
+            color: #756b64;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .home-bottom-note::before,
+        .home-bottom-note::after {
+            content: "";
+            width: 45px;
+            height: 1px;
+            background: rgba(117,107,100,0.35);
+        }
+
+        .home-bottom-note strong {
+            color: #d35400;
+        }
+
+
+        /* ================= 返回首页按钮 ================= */
+
+        .back-home-btn {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(80, 70, 60, 0.12);
+            padding: 6px 10px;
+            border-radius: 18px;
+            cursor: pointer;
+            color: #5b514b;
+            box-shadow: 0 2px 7px rgba(0,0,0,0.07);
+            transition: all 0.25s ease;
+            z-index: 100;
+        }
+
+        .home-icon {
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .home-icon svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .home-text {
+            font-size: 13px;
+            font-weight: bold;
+            color: #2f3640;
+        }
+
+        .back-home-btn:hover {
+            background-color: #e67e22;
+            color: white;
+            border-color: #e67e22;
+            transform: translateY(-1px);
+        }
+
+        .back-home-btn:hover .home-text {
+            color: white;
+        }
+
+
+        /* ================= 自动播放开关 ================= */
+
+        .auto-play-widget {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 6px 14px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            border: 1px solid #dcdde1;
+            transition: all 0.3s;
+            z-index: 100;
+            user-select: none;
+        }
+
+        .auto-play-widget:hover {
+            border-color: #e67e22;
+        }
+
+        .auto-play-text {
+            font-size: 13px;
+            font-weight: bold;
+            color: #2f3640;
+        }
+
+        .switch-toggle {
+            position: relative;
+            width: 44px;
+            height: 22px;
+            background-color: #ccc;
+            border-radius: 11px;
+            transition: background-color 0.3s;
+            display: inline-block;
+        }
+
+        .switch-toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 18px;
+            height: 18px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .auto-play-widget.active .switch-toggle {
+            background-color: #e67e22;
+        }
+
+        .auto-play-widget.active .switch-toggle::after {
+            transform: translateX(22px);
+        }
+
+
+        /* =========================================================
+           ================= 页面视觉装饰 ==========================
+           ========================================================= */
+
+        #page-vocab,
+        #page-theater {
+            position: relative;
+            isolation: isolate;
+            padding-top: 8px;
+        }
+
+        #page-vocab::before,
+        #page-theater::before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            width: 210px;
+            height: 210px;
+            border-radius: 50%;
+            border: 1px solid rgba(230,126,34,0.10);
+            right: -105px;
+            top: 70px;
+            box-shadow:
+                0 0 0 18px rgba(230,126,34,0.025),
+                0 0 0 38px rgba(230,126,34,0.018);
+            pointer-events: none;
+        }
+
+        .inner-page-heading {
+            position: relative;
+            text-align: center;
+            margin: 0 auto 24px;
+            padding: 5px 80px 4px;
+        }
+
+        .inner-page-heading::before {
+            display: none;
+        }
+
+        .inner-page-kicker {
+            display: inline-block;
+            margin-bottom: 8px;
+            padding: 4px 10px;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.82);
+            color: #9a6a48;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1.4px;
+            box-shadow: 0 2px 7px rgba(0,0,0,0.06);
+            transform: rotate(-1.5deg);
+        }
+
+        .inner-page-heading h1 {
+            margin: 0;
+            font-size: 32px;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            color: #2d3436;
+            text-shadow:
+                2px 2px 0 rgba(255,255,255,0.86),
+                0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .inner-page-heading h1 .heading-orange {
+            color: #e67e22;
+        }
+
+        .inner-page-heading .subtitle-tip {
+            margin: 9px 0 0;
+            color: #756b64;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .page-note-sticker {
+            position: absolute;
+            z-index: 3;
+            padding: 6px 10px;
+            background: rgba(255,255,255,0.92);
+            border: 1px solid rgba(0,0,0,0.055);
+            border-radius: 5px;
+            box-shadow: 0 4px 9px rgba(0,0,0,0.08);
+            color: #6b5d54;
+            font-size: 10px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .page-note-sticker.left {
+            left: 42px;
+            top: 82px;
+            transform: rotate(-7deg);
+        }
+
+        .page-note-sticker.right {
+            right: 42px;
+            top: 91px;
+            background: #fff2d8;
+            color: #a45c1b;
+            transform: rotate(6deg);
+        }
+
+        .vocab-heading-wrap {
+            margin-bottom: 26px;
+        }
+
+        .vocab-heading-wrap + .vocab-grid {
+            margin-top: 0;
+        }
+
+        .theater-heading-wrap {
+            margin-bottom: 25px;
+        }
+
+        .theater-heading-wrap + .tab-container {
+            margin-top: 0;
+        }
+
+        .section-pencil-line {
+            display: none;
+        }
+
+        @media (max-width: 700px) {
+            #page-vocab,
+            #page-theater {
+                padding-top: 4px;
+            }
+
+            .inner-page-heading {
+                padding: 9px 34px 4px;
+                margin-bottom: 21px;
+            }
+
+            .inner-page-heading h1 {
+                font-size: 27px;
+            }
+
+            .inner-page-heading .subtitle-tip {
+                font-size: 12px;
+            }
+
+            .page-note-sticker.left {
+                left: 5px;
+                top: 74px;
+            }
+
+            .page-note-sticker.right {
+                right: 5px;
+                top: 82px;
+            }
+
+            #page-vocab::before,
+            #page-theater::before {
+                right: -135px;
+                top: 95px;
+            }
+        }
+
+
+        /* =========================================================
+           =================== 单词打卡页面 ========================
+           ========================================================= */
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .vocab-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: all 0.3s;
+            border-left: 5px solid #e67e22;
+            position: relative;
+        }
+
+        .vocab-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+        }
+
+        .vocab-card.highlight {
+            box-shadow: 0 0 20px rgba(230, 126, 34, 0.9);
+            border: 2px solid #e67e22;
+            background: rgba(255, 253, 249, 0.98) !important;
+            transform: scale(1.02);
+        }
+
+        .vocab-word {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .vocab-pinyin {
+            font-size: 15px;
+            color: #d35400;
+            font-weight: 500;
+        }
+
+        .vocab-meaning {
+            font-size: 13px;
+            color: #555;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+        .vocab-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 234, 167, 0.9);
+            color: #d35400;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+
+        /* ================= 动态鸟 ================= */
+
+        .bird-container {
+            position: fixed;
+            width: 85px;
+            height: 85px;
+            z-index: 999;
+            pointer-events: none;
+            transition: transform 0.5s linear;
+            display: none;
+        }
+
+        .bird-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            animation: birdFlap 0.5s ease-in-out infinite alternate;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+        }
+
+        @keyframes birdFlap {
+            0% {
+                transform: translateY(0px) rotate(-5deg);
+            }
+
+            100% {
+                transform: translateY(-6px) rotate(5deg);
+            }
+        }
+
+
+        /* ================= 动态草蛇 ================= */
+
+        .grass-snake-container {
+            position: fixed;
+            width: 90px;
+            height: 90px;
+            z-index: 999;
+            pointer-events: none;
+            transition: transform 0.5s linear;
+            display: none;
+        }
+
+        .grass-snake-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            animation: snakeWiggle 0.6s ease-in-out infinite alternate;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+        }
+
+        @keyframes snakeWiggle {
+            0% {
+                transform: rotate(-8deg) scaleX(1);
+            }
+
+            100% {
+                transform: rotate(12deg) scaleX(0.95) skewX(5deg);
+            }
+        }
+
+
+        /* =========================================================
+           =================== 互动剧场 ============================
+           ========================================================= */
+
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: rgba(223, 230, 233, 0.9);
+            color: #2d3436;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .tab-btn.active {
+            background-color: #e67e22;
+            color: white;
+            box-shadow: 0 4px 10px rgba(230, 126, 34, 0.4);
+        }
+
+        .tab-btn:hover {
+            background-color: #b2bec3;
+        }
+
+        .tab-btn.active:hover {
+            background-color: #d35400;
+        }
+
+        .scene-content {
+            display: none;
+        }
+
+        .scene-content.active {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .dialogue-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .dialogue-row.mom {
+            flex-direction: row;
+        }
+
+        .dialogue-row.baby {
+            flex-direction: row-reverse;
+        }
+
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background-color: #fff;
+            padding: 5px;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .mom-avatar {
+            border: 2px solid #ffeaa7;
+        }
+
+        .baby-avatar {
+            border: 2px solid #fab1a0;
+        }
+
+        .bubble {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 20px;
+            border-radius: 12px;
+            max-width: 70%;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .dialogue-row.mom .bubble {
+            border-top-left-radius: 2px;
+        }
+
+        .dialogue-row.baby .bubble {
+            border-top-right-radius: 2px;
+            background-color: rgba(232, 244, 253, 0.95);
+        }
+
+        .bubble.highlight {
+            box-shadow: 0 0 15px rgba(230, 126, 34, 0.8);
+            border: 2px solid #e67e22;
+            background-color: rgba(255, 253, 249, 0.98) !important;
+            transform: scale(1.02);
+        }
+
+        .speaker-name {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+
+        .chinese-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .pinyin {
+            font-size: 14px;
+            color: #d35400;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .english {
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+
+        .audio-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 8px;
+            transition: background 0.2s;
+        }
+
+        .audio-btn:hover {
+            background-color: #2980b9;
+        }
+
+
+        /* ================= 唱片机 ================= */
+
+        .turntable-widget {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 6px 12px 6px 6px;
+            border-radius: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(230, 126, 34, 0.3);
+        }
+
+        .turntable-widget:hover {
+            transform: scale(1.05);
+        }
+
+        .turntable-tip {
+            background: #e67e22;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+            animation: bounceTip 1.5s infinite ease-in-out;
+            position: relative;
+        }
+
+        .turntable-tip::after {
+            content: '';
+            position: absolute;
+            right: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-width: 4px 0 4px 5px;
+            border-style: solid;
+            border-color: transparent transparent transparent #e67e22;
+        }
+
+        @keyframes bounceTip {
+            0%, 100% {
+                transform: translateX(0);
+            }
+
+            50% {
+                transform: translateX(-3px);
+            }
+        }
+
+        .turntable {
+            width: 40px;
+            height: 40px;
+            background: #2c3e50;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #bdc3c7;
+        }
+
+        .vinyl-disc {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: repeating-radial-gradient(
+                circle,
+                #111,
+                #111 2px,
+                #222 3px,
+                #222 4px
+            );
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .turntable.playing .vinyl-disc {
+            animation: rotateVinyl 3s linear infinite;
+        }
+
+        @keyframes rotateVinyl {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .vinyl-label {
+            width: 15px;
+            height: 15px;
+            background: #e67e22;
+            border-radius: 50%;
+            border: 1.5px solid #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .vinyl-center-hole {
+            width: 3px;
+            height: 3px;
+            background: #111;
+            border-radius: 50%;
+        }
+
+        .tonearm {
+            position: absolute;
+            top: -3px;
+            right: 1px;
+            width: 14px;
+            height: 18px;
+            background: transparent;
+            z-index: 5;
+            transform-origin: top right;
+            transform: rotate(-35deg);
+            transition: transform 0.4s ease;
+        }
+
+        .turntable.playing .tonearm {
+            transform: rotate(-5deg);
+        }
+
+        .tonearm-base {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 6px;
+            height: 6px;
+            background: #95a5a6;
+            border-radius: 50%;
+        }
+
+        .tonearm-rod {
+            position: absolute;
+            top: 3px;
+            right: 2px;
+            width: 2px;
+            height: 12px;
+            background: linear-gradient(to bottom, #bdc3c7, #7f8c8d);
+        }
+
+        .tonearm-head {
+            position: absolute;
+            bottom: 1px;
+            right: 1px;
+            width: 4px;
+            height: 5px;
+            background: #e74c3c;
+        }
+
+        .music-notes-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: visible;
+            z-index: 2000;
+        }
+
+        .floating-note {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            font-size: 14px;
+            color: #e67e22;
+            opacity: 0;
+        }
+
+        .turntable.playing .floating-note {
+            animation: floatNoteAnim 2.2s linear infinite;
+        }
+
+        .floating-note:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .floating-note:nth-child(2) {
+            animation-delay: 0.7s;
+            font-size: 16px;
+            color: #3498db;
+        }
+
+        .floating-note:nth-child(3) {
+            animation-delay: 1.4s;
+            font-size: 12px;
+            color: #2ecc71;
+        }
+
+        @keyframes floatNoteAnim {
+            0% {
+                transform: translate(0, 0) scale(0.6) rotate(0deg);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            100% {
+                transform:
+                    translate(var(--end-x, -45px), var(--end-y, -70px))
+                    scale(1.3)
+                    rotate(var(--end-rotate, 25deg));
+                opacity: 0;
+            }
+        }
+
+
+        /* ================= 手机端首页适配 ================= */
+
+        @media (max-width: 700px) {
+
+            body {
+                margin: 10px;
+                padding: 12px;
+                padding-bottom: 80px;
+            }
+
+            #page-home {
+                min-height: 700px;
+            }
+
+            .home-title {
+                font-size: 34px;
+            }
+
+            .home-subtitle {
+                font-size: 13px;
+            }
+
+            .sticker-left {
+                left: 8px;
+                top: 82px;
+            }
+
+            .sticker-right {
+                right: 8px;
+                top: 88px;
+            }
+
+            .home-banner {
+                padding: 18px 18px 20px;
+            }
+
+            .banner-main-text {
+                font-size: 15px;
+            }
+
+            .home-main-section {
+                gap: 22px;
+            }
+
+            .menu-card {
+                width: min(310px, 90%);
+                height: 215px;
+            }
+
+            .center-one-click-wrapper {
+                position: relative;
+                left: auto;
+                top: auto;
+                transform: none;
+                order: 0;
+                margin: -5px 0;
+            }
+
+            .one-click-btn {
+                width: 76px;
+                height: 76px;
+            }
+
+            .home-main-section .menu-card {
+                order: 1;
+            }
+
+            .home-bottom-note {
+                margin-top: 18px;
+            }
+
+            .turntable-widget {
+                right: 12px;
+                bottom: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 动态云顶小鸟元素 -->
+    <div class="bird-container" id="birdElem">
+        <img src="bird.png" alt="云顶小鸟" class="bird-img">
+    </div>
+
+    <!-- 动态草蛇元素 -->
+    <div class="grass-snake-container" id="grassSnake">
+        <img src="snake.jpg" alt="草蛇游走" class="grass-snake-img">
+    </div>
+
+
+    <!-- =========================================================
+         ======================= 首页 =============================
+         ========================================================= -->
+
+    <div id="page-home" class="page-view active">
+
+        <div class="home-top-label">
+            <span>NIU LAI · CHINESE PLAYGROUND</span>
+        </div>
+
+        <div class="home-title-wrap">
+
+            <div class="home-sticker sticker-left">
+                今天也要站起来
+            </div>
+
+            <div class="home-sticker sticker-right">
+                抽象中文研究所
+            </div>
+
+            <h1 class="home-title">
+                <span class="title-orange">牛来</span>中文学习乐园
+            </h1>
+
+            <div class="home-subtitle">
+                一头小牛的中文学习之旅，<strong>从趴着开始。</strong>
+            </div>
+
+        </div>
+
+
+        <div class="home-container">
+
+            <div class="home-banner">
+
+                <div class="banner-main-text">
+                    一头不太能站起来的小牛，
+                    <span class="highlight-word">一条脾气不太好的草蛇</span>，
+                    还有一些你学完以后真的会记住的中文。
+                </div>
+
+                <div class="banner-small-text">
+                    看剧情 · 学中文 · 听发音 · 玩热梗<br>
+                    不知不觉就把中文学会了。
+                </div>
+
+            </div>
+
+
+            <div class="film-strip">
+                <span class="film-hole"></span>
+                <span class="film-hole"></span>
+                <span class="film-hole"></span>
+                <span class="film-hole"></span>
+                <span class="film-hole"></span>
+                <span class="film-hole"></span>
+                <span class="film-hole"></span>
+                <span class="film-hole"></span>
+                <span class="film-hole"></span>
+                <span class="film-hole"></span>
+                <span class="film-hole"></span>
+                <span class="film-hole"></span>
+            </div>
+
+
+            <div class="home-main-section">
+
+                <!-- 一键体验 -->
+                <div class="center-one-click-wrapper">
+
+                    <div class="one-click-tip">
+                        从头玩一遍
+                    </div>
+
+                    <div
+                        class="one-click-btn"
+                        onclick="startOneClickExperience()"
+                        title="点击一键畅玩全程体验"
+                    >
+                        <span>一键</span>
+                        <span>体验</span>
+                    </div>
+
+                </div>
+
+
+                <!-- 单词打卡入口 -->
+                <div
+                    class="menu-card"
+                    onclick="switchPage('vocab')"
+                >
+
+                    <div class="menu-card-label">
+                        先把中文热起来
+                    </div>
+
+                    <div class="menu-card-icon">
+                        📖
+                    </div>
+
+                    <div class="menu-card-title">
+                        中文单词打卡
+                    </div>
+
+                    <div class="menu-card-desc">
+                        妈妈、牛来、豹拉、绊倒体……<br>
+                        先把这些奇奇怪怪的词，
+                        一个个念熟。
+                    </div>
+
+                </div>
+
+
+                <!-- 剧场入口 -->
+                <div
+                    class="menu-card"
+                    onclick="switchPage('theater')"
+                >
+
+                    <div class="menu-card-label">
+                        进入牛来宇宙
+                    </div>
+
+                    <div class="menu-card-icon">
+                        🎬
+                    </div>
+
+                    <div class="menu-card-title">
+                        情景互动剧场
+                    </div>
+
+                    <div class="menu-card-desc">
+                        妈——妈——吗——？<br>
+                        跟着角色一起开口，
+                        把电影里的中文真正说出来。
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="home-quote">
+                “勇敢一点，你是牛，要向前走。”
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         =================== 单词打卡页面 =========================
+         ========================================================= -->
+
+    <div id="page-vocab" class="page-view">
+
+        <button
+            class="back-home-btn"
+            onclick="switchPage('home')"
+            aria-label="返回首页"
+            title="返回首页"
+        >
+            <span class="home-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 10.8L12 3l9 7.8"></path>
+                    <path d="M5.5 9.8V21h13V9.8"></path>
+                    <path d="M9.5 21v-6h5v6"></path>
+                </svg>
+            </span>
+            <span class="home-text">首页</span>
+        </button>
+
+        <div
+            class="auto-play-widget"
+            id="autoPlayVocabWidget"
+            onclick="toggleVocabAutoPlay()"
+            title="开启/暂停单词自动打卡模式"
+        >
+            <span class="auto-play-text">
+                自动打卡
+            </span>
+
+            <div class="switch-toggle"></div>
+        </div>
+
+        <div class="page-note-sticker right">一起先把这几个词念熟</div>
+
+        <div class="inner-page-heading vocab-heading-wrap">
+            <div class="inner-page-kicker">NIU LAI · WORDS</div>
+            <h1><span class="heading-orange">中文</span>单词打卡</h1>
+            <div class="subtitle-tip">
+                从《牛来》里挑几个词，听一遍，再自己念一遍。
+            </div>
+            <div class="section-pencil-line"></div>
+        </div>
+
+        <div class="vocab-grid">
+
+            <div class="vocab-card" data-word="妈妈">
+
+                <div class="vocab-tag">
+                    高频词
+                </div>
+
+                <div class="vocab-word">
+                    妈妈
+                </div>
+
+                <div class="vocab-pinyin">
+                    mā ma
+                </div>
+
+                <div class="vocab-meaning">
+                    <strong>英文释义：</strong>
+                    Mom / Mother
+                    <br>
+                    <strong>场景：</strong>
+                    片中小牛遇到危险时不断呼唤的至亲。
+                </div>
+
+                <button
+                    class="audio-btn"
+                    onclick="speakOne('妈妈')"
+                >
+                    🔊 朗读发音
+                </button>
+
+            </div>
+
+
+            <div class="vocab-card" data-word="小绳头">
+
+                <div class="vocab-tag">
+                    趣味热词
+                </div>
+
+                <div class="vocab-word">
+                    小绳头
+                </div>
+
+                <div class="vocab-pinyin">
+                    xiǎo shéng tóu
+                </div>
+
+                <div class="vocab-meaning">
+                    <strong>英文释义：</strong>
+                    Little string head / Cute snake reference
+                    <br>
+                    <strong>场景：</strong>
+                    网友对片中草蛇角色的魔性称呼。
+                </div>
+
+                <button
+                    class="audio-btn"
+                    onclick="speakOne('小绳头')"
+                >
+                    🔊 朗读发音
+                </button>
+
+            </div>
+
+
+            <div class="vocab-card" data-word="牛来">
+
+                <div class="vocab-tag">
+                    电影核心
+                </div>
+
+                <div class="vocab-word">
+                    牛来
+                </div>
+
+                <div class="vocab-pinyin">
+                    niú lái
+                </div>
+
+                <div class="vocab-meaning">
+                    <strong>英文释义：</strong>
+                    Niu Lai / Bull market is coming
+                    <br>
+                    <strong>场景：</strong>
+                    影片主角名字，也是全网爆火的金融与精神暗号。
+                </div>
+
+                <button
+                    class="audio-btn"
+                    onclick="speakOne('牛来')"
+                >
+                    🔊 朗读发音
+                </button>
+
+            </div>
+
+
+            <div class="vocab-card" data-word="豹拉">
+
+                <div class="vocab-tag">
+                    人气配角
+                </div>
+
+                <div class="vocab-word">
+                    豹拉
+                </div>
+
+                <div class="vocab-pinyin">
+                    bào lā
+                </div>
+
+                <div class="vocab-meaning">
+                    <strong>英文释义：</strong>
+                    Bao La
+                    <br>
+                    <strong>场景：</strong>
+                    片中长相极其抽象、引发全网狂欢的魔性配角小豹子。
+                </div>
+
+                <button
+                    class="audio-btn"
+                    onclick="speakOne('豹拉')"
+                >
+                    🔊 朗读发音
+                </button>
+
+            </div>
+
+
+            <div class="vocab-card" data-word="绊倒体">
+
+                <div class="vocab-tag">
+                    网络神梗
+                </div>
+
+                <div class="vocab-word">
+                    绊倒体
+                </div>
+
+                <div class="vocab-pinyin">
+                    bàn dǎo tǐ
+                </div>
+
+                <div class="vocab-meaning">
+                    <strong>英文释义：</strong>
+                    Tripped posture / Semiconductor pun
+                    <br>
+                    <strong>场景：</strong>
+                    小牛四脚朝天名场面，谐音“半导体”的搞笑热梗。
+                </div>
+
+                <button
+                    class="audio-btn"
+                    onclick="speakOne('绊倒体')"
+                >
+                    🔊 朗读发音
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- =========================================================
+         =================== 互动剧场页面 =========================
+         ========================================================= -->
+
+    <div id="page-theater" class="page-view">
+
+        <button
+            class="back-home-btn"
+            onclick="switchPage('home')"
+            aria-label="返回首页"
+            title="返回首页"
+        >
+            <span class="home-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 10.8L12 3l9 7.8"></path>
+                    <path d="M5.5 9.8V21h13V9.8"></path>
+                    <path d="M9.5 21v-6h5v6"></path>
+                </svg>
+            </span>
+            <span class="home-text">首页</span>
+        </button>
+
+        <div
+            class="auto-play-widget"
+            id="autoPlayWidget"
+            onclick="toggleAutoPlay()"
+            title="开启/暂停自动播放模式"
+        >
+            <span class="auto-play-text">
+                自动剧场
+            </span>
+
+            <div class="switch-toggle"></div>
+        </div>
+
+        <div class="page-note-sticker right">跟着牛来，把这句喊出来</div>
+
+        <div class="inner-page-heading theater-heading-wrap">
+            <div class="inner-page-kicker">NIU LAI · THEATER</div>
+            <h1><span class="heading-orange">情景</span>互动剧场</h1>
+            <div class="subtitle-tip">
+                选一段剧情，听角色怎么说，再跟着念一遍。
+            </div>
+            <div class="section-pencil-line"></div>
+        </div>
+
+        <div class="tab-container">
+
+            <button
+                class="tab-btn"
+                onclick="manualSwitchScene(1)"
+            >
+                片段一：勇敢站起来
+            </button>
+
+            <button
+                class="tab-btn"
+                onclick="manualSwitchScene(2)"
+            >
+                片段二：妈~妈~吗~ 名场面
+            </button>
+
+            <button
+                class="tab-btn"
+                onclick="manualSwitchScene(3)"
+            >
+                片段三：终极大反差
+            </button>
+
+        </div>
+
+
+        <!-- 片段一 -->
+
+        <div id="scene-1" class="scene-content">
+
+            <div
+                class="dialogue-row mom"
+                data-text="牛来，别趴着了，快站起来！"
+            >
+
+                <div class="avatar mom-avatar">
+                    <img
+                        src="mom.jpg"
+                        alt="牛妈妈头像"
+                    >
+                </div>
+
+                <div class="bubble">
+
+                    <div class="speaker-name">
+                        牛妈妈 (Mom)
+                    </div>
+
+                    <div class="chinese-text">
+                        牛来，别趴着了，快站起来！
+                    </div>
+
+                    <div class="pinyin">
+                        Niú lái, bié pā zhe le, kuài zhàn qǐ lái!
+                    </div>
+
+                    <div class="english">
+                        Niu Lai, stop lying down, get up quickly!
+                    </div>
+
+                    <button
+                        class="audio-btn"
+                        onclick="speakOne('牛来，别趴着了，快站起来！')"
+                    >
+                        🔊 朗读 (Read)
+                    </button>
+
+                </div>
+            </div>
+
+
+            <div
+                class="dialogue-row baby"
+                data-text="妈妈,外面好可怕,我不敢动。"
+            >
+
+                <div class="avatar baby-avatar">
+                    <img
+                        src="niulai.jpg"
+                        alt="牛来头像"
+                    >
+                </div>
+
+                <div class="bubble">
+
+                    <div class="speaker-name">
+                        牛来 (Niu Lai)
+                    </div>
+
+                    <div class="chinese-text">
+                        妈妈，外面好可怕，我不敢动。
+                    </div>
+
+                    <div class="pinyin">
+                        Māma, wài miàn hǎo kě pà, wǒ bù gǎn dòng.
+                    </div>
+
+                    <div class="english">
+                        Mom, it's so scary outside, I dare not move.
+                    </div>
+
+                    <button
+                        class="audio-btn"
+                        onclick="speakOne('妈妈,外面好可怕,我不敢动。')"
+                    >
+                        🔊 朗读 (Read)
+                    </button>
+
+                </div>
+            </div>
+
+
+            <div
+                class="dialogue-row mom"
+                data-text="勇敢一点,你是牛,要向前走。"
+            >
+
+                <div class="avatar mom-avatar">
+                    <img
+                        src="mom.jpg"
+                        alt="牛妈妈头像"
+                    >
+                </div>
+
+                <div class="bubble">
+
+                    <div class="speaker-name">
+                        牛妈妈 (Mom)
+                    </div>
+
+                    <div class="chinese-text">
+                        勇敢一点，你是牛，要向前走。
+                    </div>
+
+                    <div class="pinyin">
+                        Yǒng gǎn yì diǎn, nǐ shì niú, yào xiàng qián zǒu.
+                    </div>
+
+                    <div class="english">
+                        Be brave, you are an ox, you need to move forward.
+                    </div>
+
+                    <button
+                        class="audio-btn"
+                        onclick="speakOne('勇敢一点,你是牛,要向前走。')"
+                    >
+                        🔊 朗读 (Read)
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- 片段二 -->
+
+        <div id="scene-2" class="scene-content">
+
+            <div
+                class="dialogue-row baby"
+                data-text="妈妈吗？我被咬了呜呜呜"
+            >
+
+                <div class="avatar baby-avatar">
+                    <img
+                        src="niulai.jpg"
+                        alt="牛来头像"
+                    >
+                </div>
+
+                <div class="bubble">
+
+                    <div class="speaker-name">
+                        牛来 (Niu Lai)
+                    </div>
+
+                    <div class="chinese-text">
+                        妈——妈——吗——？我被咬了呜呜呜……
+                    </div>
+
+                    <div class="pinyin">
+                        Mā—— mā—— ma——? Wǒ bèi yǎo le wū wū wū...
+                    </div>
+
+                    <div class="english">
+                        Mom... ma... ? I got bitten, wuwuwu...
+                    </div>
+
+                    <button
+                        class="audio-btn"
+                        onclick="speakOne('妈妈吗？我被咬了呜呜呜')"
+                    >
+                        🔊 朗读 (Read)
+                    </button>
+
+                </div>
+            </div>
+
+
+            <div
+                class="dialogue-row mom"
+                data-text="草蛇,一定是你先招惹它,它才会咬你的！"
+            >
+
+                <div class="avatar mom-avatar">
+                    <img
+                        src="mom.jpg"
+                        alt="牛妈妈头像"
+                    >
+                </div>
+
+                <div class="bubble">
+
+                    <div class="speaker-name">
+                        牛妈妈 (Mom)
+                    </div>
+
+                    <div class="chinese-text">
+                        草蛇，一定是你先招惹它，它才会咬你的！
+                    </div>
+
+                    <div class="pinyin">
+                        Cǎoshé, yídìng shì nǐ xiān zhāozhe tā, tā cái huì yǎo nǐ de!
+                    </div>
+
+                    <div class="english">
+                        Grass snake, it must be you who provoked it first!
+                    </div>
+
+                    <button
+                        class="audio-btn"
+                        onclick="speakOne('草蛇,一定是你先招惹它,它才会咬你的！')"
+                    >
+                        🔊 朗读 (Read)
+                    </button>
+
+                </div>
+            </div>
+
+
+            <div
+                class="dialogue-row baby"
+                data-text="它凶我,它真的好凶！"
+            >
+
+                <div class="avatar baby-avatar">
+                    <img
+                        src="niulai.jpg"
+                        alt="牛来头像"
+                    >
+                </div>
+
+                <div class="bubble">
+
+                    <div class="speaker-name">
+                        牛来 (Niu Lai)
+                    </div>
+
+                    <div class="chinese-text">
+                        它凶我，它真的好凶！
+                    </div>
+
+                    <div class="pinyin">
+                        Tā xiōng wǒ, tā zhēn de hǎo xiōng!
+                    </div>
+
+                    <div class="english">
+                        It glared at me, it's so fierce!
+                    </div>
+
+                    <button
+                        class="audio-btn"
+                        onclick="speakOne('它凶我,它真的好凶！')"
+                    >
+                        🔊 朗读 (Read)
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- 片段三 -->
+
+        <div id="scene-3" class="scene-content">
+
+            <div
+                class="dialogue-row mom"
+                data-text="别哭了。振作点,你以后还要做大事情呢。"
+            >
+
+                <div class="avatar mom-avatar">
+                    <img
+                        src="mom.jpg"
+                        alt="牛妈妈头像"
+                    >
+                </div>
+
+                <div class="bubble">
+
+                    <div class="speaker-name">
+                        牛妈妈 (Mom)
+                    </div>
+
+                    <div class="chinese-text">
+                        别哭了。振作点，你以后还要做大事情呢。
+                    </div>
+
+                    <div class="pinyin">
+                        Bié kū le. Zhènzuò diǎn, nǐ yǐhòu hái yào zuò dà shìqíng ne.
+                    </div>
+
+                    <div class="english">
+                        Stop crying. Cheer up, you have big things to do in the future.
+                    </div>
+
+                    <button
+                        class="audio-btn"
+                        onclick="speakOne('别哭了。振作点,你以后还要做大事情呢。')"
+                    >
+                        🔊 朗读 (Read)
+                    </button>
+
+                </div>
+            </div>
+
+
+            <div
+                class="dialogue-row baby"
+                data-text="我不管,我饿了,我要吃奶。"
+            >
+
+                <div class="avatar baby-avatar">
+                    <img
+                        src="niulai.jpg"
+                        alt="牛来头像"
+                    >
+                </div>
+
+                <div class="bubble">
+
+                    <div class="speaker-name">
+                        牛来 (Niu Lai)
+                    </div>
+
+                    <div class="chinese-text">
+                        我不管，我饿了，我要吃奶。
+                    </div>
+
+                    <div class="pinyin">
+                        Wǒ bù guǎn, wǒ è le, wǒ yào chī nǎi.
+                    </div>
+
+                    <div class="english">
+                        I don't care, I'm hungry, I want milk.
+                    </div>
+
+                    <button
+                        class="audio-btn"
+                        onclick="speakOne('我不管,我饿了,我要吃奶。')"
+                    >
+                        🔊 朗读 (Read)
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         ===================== 唱片机 ==============================
+         ========================================================= -->
+
+    <div
+        class="turntable-widget"
+        id="turntableWidget"
+        onclick="toggleMusic()"
+        title="点击播放/暂停片尾曲：雨后轻风有香"
+    >
+
+        <div
+            class="turntable-tip"
+            id="turntableTip"
+        >
+            🎵 点我听片尾曲
+        </div>
+
+        <div
+            class="turntable"
+            id="turntableElem"
+        >
+
+            <div class="vinyl-disc">
+
+                <div class="vinyl-label">
+                    <div class="vinyl-center-hole"></div>
+                </div>
+
+            </div>
+
+            <div class="tonearm">
+
+                <div class="tonearm-base"></div>
+                <div class="tonearm-rod"></div>
+                <div class="tonearm-head"></div>
+
+            </div>
+
+            <div class="music-notes-container">
+
+                <span
+                    class="floating-note"
+                    style="--end-x: -35px; --end-y: -65px; --end-rotate: 15deg;"
+                >
+                    ♪
+                </span>
+
+                <span
+                    class="floating-note"
+                    style="--end-x: -55px; --end-y: -85px; --end-rotate: -20deg;"
+                >
+                    ♫
+                </span>
+
+                <span
+                    class="floating-note"
+                    style="--end-x: -25px; --end-y: -75px; --end-rotate: 35deg;"
+                >
+                    ♩
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- 背景音乐 -->
+    <audio
+        id="bgMusic"
+        src="ending.mp3"
+        preload="auto"
+    ></audio>
+
+
+    <!-- =========================================================
+         ======================= JS ===============================
+         ========================================================= -->
+
+    <script>
+
+        /* =========================================================
+           ===================== 全局配置 ==========================
+           ========================================================= */
+
+        const AUTO_START_DELAY = 3000;
+        const VOCAB_PAUSE_TIME = 1500;
+        const SCENE_CHANGE_PAUSE = 3000;
+        const TTS_RATE = 0.75;
+
+
+        /* =========================================================
+           ===================== 全局状态 ==========================
+           ========================================================= */
+
+        let autoPlayActive = false;
+        let autoPlayVocabActive = false;
+
+        let currentDialogueIndex = 0;
+        let currentVocabIndex = 0;
+
+        let isRunningAuto = false;
+        let isRunningVocabAuto = false;
+
+        let isOneClickExperience = false;
+
+        let isPlaying = false;
+
+
+        /* =========================================================
+           ===================== 页面切换 ==========================
+           ========================================================= */
+
+        function stopAllAutoModes() {
+
+            autoPlayActive = false;
+            autoPlayVocabActive = false;
+
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+
+            const vocabWidget =
+                document.getElementById('autoPlayVocabWidget');
+
+            const theaterWidget =
+                document.getElementById('autoPlayWidget');
+
+            if (vocabWidget) {
+                vocabWidget.classList.remove('active');
+            }
+
+            if (theaterWidget) {
+                theaterWidget.classList.remove('active');
+            }
+
+            clearVocabHighlights();
+            clearHighlights();
+        }
+
+
+        function switchPage(pageId) {
+
+            const pages =
+                document.querySelectorAll('.page-view');
+
+            const birdContainer =
+                document.getElementById('birdElem');
+
+            const snakeContainer =
+                document.getElementById('grassSnake');
+
+
+            /*
+             * 页面切换时终止自动模式。
+             *
+             * 一键体验本身会在切换页面后重新启动对应阶段，
+             * 因此这里只负责停止旧页面正在运行的自动流程。
+             */
+            stopAllAutoModes();
+
+
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+
+            if (pageId === 'vocab') {
+
+                birdContainer.style.display = 'block';
+                snakeContainer.style.display = 'none';
+
+                document
+                    .getElementById('page-vocab')
+                    .classList.add('active');
+
+
+                /*
+                 * 单独进入单词页时自动开启。
+                 * 一键体验进入时由一键体验流程自己控制。
+                 */
+                if (!isOneClickExperience) {
+
+                    setTimeout(() => {
+
+                        const vocabPage =
+                            document.getElementById('page-vocab');
+
+                        if (
+                            vocabPage &&
+                            vocabPage.classList.contains('active') &&
+                            !isOneClickExperience &&
+                            !autoPlayVocabActive
+                        ) {
+
+                            toggleVocabAutoPlay();
+
+                        }
+
+                    }, 100);
+
+                }
+
+            }
+
+            else if (pageId === 'theater') {
+
+                birdContainer.style.display = 'none';
+                snakeContainer.style.display = 'block';
+
+                document
+                    .getElementById('page-theater')
+                    .classList.add('active');
+
+
+                switchScene(1);
+
+
+                /*
+                 * 单独进入剧场页时自动开启。
+                 * 一键体验进入时由一键体验流程自己控制。
+                 */
+                if (!isOneClickExperience) {
+
+                    setTimeout(() => {
+
+                        const theaterPage =
+                            document.getElementById('page-theater');
+
+                        if (
+                            theaterPage &&
+                            theaterPage.classList.contains('active') &&
+                            !isOneClickExperience &&
+                            !autoPlayActive
+                        ) {
+
+                            toggleAutoPlay();
+
+                        }
+
+                    }, 100);
+
+                }
+
+            }
+
+            else {
+
+                document
+                    .getElementById('page-home')
+                    .classList.add('active');
+
+                birdContainer.style.display = 'none';
+                snakeContainer.style.display = 'none';
+
+            }
+
+
+            /*
+             * 页面真正切换完成后再同步音乐 UI，
+             * 避免 UI 判断到旧页面状态。
+             */
+            syncMusicUI();
+
+        }
+
+
+        /* =========================================================
+           ===================== 动态云顶小鸟 ========================
+           ========================================================= */
+
+        const birdElem =
+            document.getElementById('birdElem');
+
+        let birdX = 100;
+        let birdY = 100;
+
+        let birdTargetX =
+            Math.random() *
+            Math.max(window.innerWidth - 150, 100) + 50;
+
+        let birdTargetY =
+            Math.random() *
+            Math.max(window.innerHeight - 150, 100) + 50;
+
+        const birdSpeed = 1.4;
+
+
+        function updateBirdPosition() {
+
+            if (birdElem.style.display === 'block') {
+
+                const dx =
+                    birdTargetX - birdX;
+
+                const dy =
+                    birdTargetY - birdY;
+
+                const dist =
+                    Math.sqrt(dx * dx + dy * dy);
+
+
+                if (dist < 5) {
+
+                    birdTargetX =
+                        Math.random() *
+                        Math.max(window.innerWidth - 120, 100) + 60;
+
+                    birdTargetY =
+                        Math.random() *
+                        Math.max(window.innerHeight - 120, 100) + 60;
+
+                }
+
+                else {
+
+                    birdX +=
+                        (dx / dist) * birdSpeed;
+
+                    birdY +=
+                        (dy / dist) * birdSpeed;
+
+                }
+
+
+                birdElem.style.left =
+                    birdX + 'px';
+
+                birdElem.style.top =
+                    birdY + 'px';
+
+
+                birdElem.style.transform =
+                    dx > 0
+                        ? 'scaleX(1)'
+                        : 'scaleX(-1)';
+
+            }
+
+            requestAnimationFrame(updateBirdPosition);
+
+        }
+
+        requestAnimationFrame(updateBirdPosition);
+
+
+        /* =========================================================
+           ===================== 动态草蛇 ==========================
+           ========================================================= */
+
+        const snakeElem =
+            document.getElementById('grassSnake');
+
+        let snakeX =
+            window.innerWidth / 2;
+
+        let snakeY = 100;
+
+        let targetX =
+            Math.random() *
+            Math.max(window.innerWidth - 150, 100) + 50;
+
+        let targetY =
+            Math.random() *
+            Math.max(window.innerHeight - 150, 100) + 50;
+
+        const snakeSpeed = 1.2;
+
+
+        function updateSnakePosition() {
+
+            if (snakeElem.style.display === 'block') {
+
+                const dx =
+                    targetX - snakeX;
+
+                const dy =
+                    targetY - snakeY;
+
+                const dist =
+                    Math.sqrt(dx * dx + dy * dy);
+
+
+                if (dist < 5) {
+
+                    targetX =
+                        Math.random() *
+                        Math.max(window.innerWidth - 120, 100) + 60;
+
+                    targetY =
+                        Math.random() *
+                        Math.max(window.innerHeight - 120, 100) + 60;
+
+                }
+
+                else {
+
+                    snakeX +=
+                        (dx / dist) * snakeSpeed;
+
+                    snakeY +=
+                        (dy / dist) * snakeSpeed;
+
+                }
+
+
+                snakeElem.style.left =
+                    snakeX + 'px';
+
+                snakeElem.style.top =
+                    snakeY + 'px';
+
+
+                snakeElem.style.transform =
+                    dx > 0
+                        ? 'scaleX(1)'
+                        : 'scaleX(-1)';
+
+            }
+
+            requestAnimationFrame(updateSnakePosition);
+
+        }
+
+        requestAnimationFrame(updateSnakePosition);
+
+
+        /* =========================================================
+           ===================== 单词打卡 ==========================
+           ========================================================= */
+
+        const vocabCards =
+            document.querySelectorAll('.vocab-card');
+
+
+        function clearVocabHighlights() {
+
+            vocabCards.forEach(card => {
+                card.classList.remove('highlight');
+            });
+
+        }
+
+
+        /*
+         * 返回：
+         *
+         * true  = 正常完整播放完一轮
+         * false = 用户中途关闭 / 页面切换 / 未正常完成
+         */
+        async function runVocabAutoPlayLoop(
+            isSingleRound = false
+        ) {
+
+            if (isRunningVocabAuto) {
+                return false;
+            }
+
+
+            isRunningVocabAuto = true;
+            autoPlayVocabActive = true;
+
+            let completedNormally = false;
+
+
+            await new Promise(resolve => {
+                setTimeout(resolve, AUTO_START_DELAY);
+            });
+
+
+            if (!autoPlayVocabActive) {
+
+                isRunningVocabAuto = false;
+                clearVocabHighlights();
+
+                return false;
+
+            }
+
+
+            currentVocabIndex = 0;
+
+            let roundsPlayed = 0;
+
+
+            while (autoPlayVocabActive) {
+
+                if (
+                    currentVocabIndex >=
+                    vocabCards.length
+                ) {
+
+                    currentVocabIndex = 0;
+                    roundsPlayed++;
+
+
+                    if (
+                        isSingleRound &&
+                        roundsPlayed >= 1
+                    ) {
+
+                        completedNormally = true;
+
+                        break;
+
+                    }
+
+                }
+
+
+                const vocabPage =
+                    document.getElementById('page-vocab');
+
+
+                if (
+                    !vocabPage ||
+                    !vocabPage.classList.contains('active')
+                ) {
+
+                    break;
+
+                }
+
+
+                clearVocabHighlights();
+
+
+                const currentCard =
+                    vocabCards[currentVocabIndex];
+
+
+                currentCard.classList.add('highlight');
+
+
+                currentCard.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest'
+                });
+
+
+                const wordText =
+                    currentCard.getAttribute('data-word');
+
+
+                if (
+                    wordText &&
+                    autoPlayVocabActive
+                ) {
+
+                    await speakAsync(wordText);
+
+                }
+
+
+                if (autoPlayVocabActive) {
+
+                    await new Promise(resolve => {
+                        setTimeout(resolve, VOCAB_PAUSE_TIME);
+                    });
+
+                }
+
+
+                currentVocabIndex++;
+
+            }
+
+
+            autoPlayVocabActive = false;
+
+
+            const widget =
+                document.getElementById(
+                    'autoPlayVocabWidget'
+                );
+
+
+            if (widget) {
+                widget.classList.remove('active');
+            }
+
+
+            clearVocabHighlights();
+
+            isRunningVocabAuto = false;
+
+
+            return completedNormally;
+
+        }
+
+
+        function toggleVocabAutoPlay() {
+
+            autoPlayVocabActive =
+                !autoPlayVocabActive;
+
+
+            const widget =
+                document.getElementById(
+                    'autoPlayVocabWidget'
+                );
+
+
+            if (autoPlayVocabActive) {
+
+                widget.classList.add('active');
+
+
+                if (!isPlaying) {
+                    startMusic();
+                }
+
+
+                runVocabAutoPlayLoop(true);
+
+            }
+
+            else {
+
+                widget.classList.remove('active');
+
+
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                }
+
+
+                clearVocabHighlights();
+
+            }
+
+        }
+
+
+        /* =========================================================
+           ===================== 剧场数据 ==========================
+           ========================================================= */
+
+        const allDialogueRows = [
+
+            {
+                scene: 1,
+                row: document.querySelector(
+                    '#scene-1 .dialogue-row:nth-child(1)'
+                )
+            },
+
+            {
+                scene: 1,
+                row: document.querySelector(
+                    '#scene-1 .dialogue-row:nth-child(2)'
+                )
+            },
+
+            {
+                scene: 1,
+                row: document.querySelector(
+                    '#scene-1 .dialogue-row:nth-child(3)'
+                )
+            },
+
+            {
+                scene: 2,
+                row: document.querySelector(
+                    '#scene-2 .dialogue-row:nth-child(1)'
+                )
+            },
+
+            {
+                scene: 2,
+                row: document.querySelector(
+                    '#scene-2 .dialogue-row:nth-child(2)'
+                )
+            },
+
+            {
+                scene: 2,
+                row: document.querySelector(
+                    '#scene-2 .dialogue-row:nth-child(3)'
+                )
+            },
+
+            {
+                scene: 3,
+                row: document.querySelector(
+                    '#scene-3 .dialogue-row:nth-child(1)'
+                )
+            },
+
+            {
+                scene: 3,
+                row: document.querySelector(
+                    '#scene-3 .dialogue-row:nth-child(2)'
+                )
+            }
+
+        ];
+
+
+        /* =========================================================
+           ===================== 剧场场景 ==========================
+           ========================================================= */
+
+        function switchScene(sceneNum) {
+
+            const buttons =
+                document.querySelectorAll(
+                    '#page-theater .tab-btn'
+                );
+
+
+            buttons.forEach((btn, idx) => {
+
+                if (idx === sceneNum - 1) {
+                    btn.classList.add('active');
+                }
+
+                else {
+                    btn.classList.remove('active');
+                }
+
+            });
+
+
+            const scenes =
+                document.querySelectorAll(
+                    '#page-theater .scene-content'
+                );
+
+
+            scenes.forEach((scene, idx) => {
+
+                if (idx === sceneNum - 1) {
+                    scene.classList.add('active');
+                }
+
+                else {
+                    scene.classList.remove('active');
+                }
+
+            });
+
+        }
+
+
+        function manualSwitchScene(sceneNum) {
+
+            switchScene(sceneNum);
+
+
+            for (
+                let i = 0;
+                i < allDialogueRows.length;
+                i++
+            ) {
+
+                if (
+                    allDialogueRows[i].scene ===
+                    sceneNum
+                ) {
+
+                    currentDialogueIndex = i;
+
+                    break;
+
+                }
+
+            }
+
+
+            clearHighlights();
+
+
+            const currentItem =
+                allDialogueRows[currentDialogueIndex];
+
+
+            if (!currentItem || !currentItem.row) {
+                return;
+            }
+
+
+            const bubble =
+                currentItem.row.querySelector('.bubble');
+
+
+            if (bubble) {
+                bubble.classList.add('highlight');
+            }
+
+        }
+
+
+        /* =========================================================
+           ===================== 语音 ===============================
+           ========================================================= */
+
+        function speakOne(text) {
+
+            if ('speechSynthesis' in window) {
+
+                window.speechSynthesis.cancel();
+
+
+                const utterance =
+                    new SpeechSynthesisUtterance(text);
+
+
+                utterance.lang = 'zh-CN';
+                utterance.rate = TTS_RATE;
+
+
+                window.speechSynthesis.speak(utterance);
+
+            }
+
+        }
+
+
+        function speakAsync(text) {
+
+            return new Promise(resolve => {
+
+                if (
+                    !autoPlayActive &&
+                    !autoPlayVocabActive
+                ) {
+
+                    resolve();
+                    return;
+
+                }
+
+
+                if ('speechSynthesis' in window) {
+
+                    window.speechSynthesis.cancel();
+
+
+                    const utterance =
+                        new SpeechSynthesisUtterance(text);
+
+
+                    utterance.lang = 'zh-CN';
+                    utterance.rate = TTS_RATE;
+
+
+                    utterance.onend = () => resolve();
+                    utterance.onerror = () => resolve();
+
+
+                    window.speechSynthesis.speak(
+                        utterance
+                    );
+
+                }
+
+                else {
+
+                    setTimeout(resolve, 4000);
+
+                }
+
+            });
+
+        }
+
+
+        /* =========================================================
+           ===================== 音乐逻辑 ==========================
+           ========================================================= */
+
+        const audio =
+            document.getElementById('bgMusic');
+
+        const turntableElem =
+            document.getElementById('turntableElem');
+
+        const turntableTip =
+            document.getElementById('turntableTip');
+
+
+        function syncMusicUI(state = null) {
+
+            if (
+                !audio ||
+                !turntableElem ||
+                !turntableTip
+            ) {
+                return;
+            }
+
+
+            const homePage =
+                document.getElementById('page-home');
+
+
+            const homeActive =
+                homePage &&
+                homePage.classList.contains('active');
+
+
+            const actuallyPlaying =
+                state === 'playing'
+                    ? true
+                    : state === 'ended'
+                        ? false
+                        : !audio.paused && !audio.ended;
+
+
+            isPlaying = actuallyPlaying;
+
+
+            turntableElem.classList.toggle(
+                'playing',
+                actuallyPlaying
+            );
+
+
+            /*
+             * 首页始终隐藏唱片机文字提示。
+             */
+            if (homeActive) {
+
+                turntableTip.style.display = 'none';
+
+                return;
+
+            }
+
+
+            turntableTip.style.display = 'block';
+
+
+            if (
+                state === 'ended' ||
+                audio.ended
+            ) {
+
+                turntableTip.textContent =
+                    "🎵 点我听片尾曲";
+
+            }
+
+            else if (actuallyPlaying) {
+
+                turntableTip.style.display = 'none';
+
+            }
+
+            else {
+
+                turntableTip.textContent =
+                    "🎵 继续听片尾曲";
+
+            }
+
+        }
+
+
+        function startMusic() {
+
+            if (
+                !audio.paused &&
+                !audio.ended
+            ) {
+
+                syncMusicUI('playing');
+
+                return;
+
+            }
+
+
+            /*
+             * 音乐每次重新开始都从头播放。
+             * 不设置 loop，因此播放结束后自然停止。
+             */
+            audio.currentTime = 0;
+
+
+            const playPromise =
+                audio.play();
+
+
+            if (
+                playPromise &&
+                typeof playPromise.catch === 'function'
+            ) {
+
+                playPromise.catch(err => {
+
+                    syncMusicUI();
+
+                    console.log(
+                        "浏览器自动播放限制：",
+                        err
+                    );
+
+                });
+
+            }
+
+        }
+
+
+        function pauseMusic() {
+
+            audio.pause();
+
+            syncMusicUI();
+
+        }
+
+
+        function toggleMusic() {
+
+            if (
+                audio.paused ||
+                audio.ended
+            ) {
+
+                if (audio.ended) {
+                    audio.currentTime = 0;
+                }
+
+
+                const playPromise =
+                    audio.play();
+
+
+                if (
+                    playPromise &&
+                    typeof playPromise.catch === 'function'
+                ) {
+
+                    playPromise.catch(err => {
+
+                        syncMusicUI();
+
+                        console.log(
+                            "播放片尾曲失败：",
+                            err
+                        );
+
+                    });
+
+                }
+
+            }
+
+            else {
+
+                pauseMusic();
+
+            }
+
+        }
+
+
+        audio.addEventListener(
+            'play',
+            () => {
+                syncMusicUI('playing');
+            }
+        );
+
+
+        audio.addEventListener(
+            'playing',
+            () => {
+                syncMusicUI('playing');
+            }
+        );
+
+
+        audio.addEventListener(
+            'pause',
+            () => {
+
+                if (!audio.ended) {
+                    syncMusicUI('paused');
+                }
+
+            }
+        );
+
+
+        audio.addEventListener(
+            'ended',
+            () => {
+                syncMusicUI('ended');
+            }
+        );
+
+
+        /* =========================================================
+           ===================== 高亮清除 ==========================
+           ========================================================= */
+
+        function clearHighlights() {
+
+            allDialogueRows.forEach(item => {
+
+                if (!item.row) {
+                    return;
+                }
+
+
+                const bubble =
+                    item.row.querySelector('.bubble');
+
+
+                if (bubble) {
+
+                    bubble.classList.remove(
+                        'highlight'
+                    );
+
+                }
+
+            });
+
+        }
+
+
+        /* =========================================================
+           ===================== 自动剧场 ==========================
+           ========================================================= */
+
+        /*
+         * 返回：
+         *
+         * true  = 正常完整播放完一轮
+         * false = 用户中途关闭 / 页面切换 / 未正常完成
+         */
+        async function runAutoPlayLoop(
+            initialDelay = AUTO_START_DELAY,
+            isSingleRound = true
+        ) {
+
+            if (isRunningAuto) {
+                return false;
+            }
+
+
+            isRunningAuto = true;
+            autoPlayActive = true;
+
+            let completedNormally = false;
+
+
+            await new Promise(resolve => {
+                setTimeout(resolve, initialDelay);
+            });
+
+
+            if (!autoPlayActive) {
+
+                isRunningAuto = false;
+                clearHighlights();
+
+                return false;
+
+            }
+
+
+            currentDialogueIndex = 0;
+
+
+            while (autoPlayActive) {
+
+                if (
+                    currentDialogueIndex >=
+                    allDialogueRows.length
+                ) {
+
+                    if (isSingleRound) {
+
+                        completedNormally = true;
+
+                        break;
+
+                    }
+
+                    currentDialogueIndex = 0;
+
+                }
+
+
+                const currentItem =
+                    allDialogueRows[
+                        currentDialogueIndex
+                    ];
+
+
+                if (!currentItem || !currentItem.row) {
+
+                    currentDialogueIndex++;
+
+                    continue;
+
+                }
+
+
+                const prevItem =
+                    currentDialogueIndex > 0
+                        ? allDialogueRows[
+                            currentDialogueIndex - 1
+                        ]
+                        : null;
+
+
+                const theaterPage =
+                    document.getElementById(
+                        'page-theater'
+                    );
+
+
+                if (
+                    !theaterPage ||
+                    !theaterPage.classList.contains('active')
+                ) {
+
+                    break;
+
+                }
+
+
+                switchScene(
+                    currentItem.scene
+                );
+
+
+                clearHighlights();
+
+
+                const bubble =
+                    currentItem.row.querySelector(
+                        '.bubble'
+                    );
+
+
+                if (bubble) {
+
+                    bubble.classList.add(
+                        'highlight'
+                    );
+
+
+                    bubble.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest'
+                    });
+
+                }
+
+
+                const textToSpeak =
+                    currentItem.row.getAttribute(
+                        'data-text'
+                    );
+
+
+                if (
+                    textToSpeak &&
+                    autoPlayActive
+                ) {
+
+                    await speakAsync(textToSpeak);
+
+                }
+
+
+                if (autoPlayActive) {
+
+                    let pauseTime =
+                        VOCAB_PAUSE_TIME;
+
+
+                    if (
+                        prevItem &&
+                        prevItem.scene !==
+                        currentItem.scene
+                    ) {
+
+                        pauseTime =
+                            SCENE_CHANGE_PAUSE;
+
+                    }
+
+
+                    await new Promise(resolve => {
+                        setTimeout(resolve, pauseTime);
+                    });
+
+                }
+
+
+                currentDialogueIndex++;
+
+            }
+
+
+            autoPlayActive = false;
+
+
+            const widget =
+                document.getElementById(
+                    'autoPlayWidget'
+                );
+
+
+            if (widget) {
+                widget.classList.remove('active');
+            }
+
+
+            clearHighlights();
+
+            isRunningAuto = false;
+
+
+            return completedNormally;
+
+        }
+
+
+        function toggleAutoPlay() {
+
+            autoPlayActive =
+                !autoPlayActive;
+
+
+            const widget =
+                document.getElementById(
+                    'autoPlayWidget'
+                );
+
+
+            if (autoPlayActive) {
+
+                widget.classList.add('active');
+
+
+                if (!isPlaying) {
+                    startMusic();
+                }
+
+
+                runAutoPlayLoop(
+                    AUTO_START_DELAY,
+                    true
+                );
+
+            }
+
+            else {
+
+                widget.classList.remove('active');
+
+
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                }
+
+
+                clearHighlights();
+
+            }
+
+        }
+
+
+        /* =========================================================
+           ===================== 一键体验 ==========================
+           ========================================================= */
+
+        async function startOneClickExperience() {
+
+            /*
+             * 防止连续点击一键体验，
+             * 导致多个完整流程同时运行。
+             */
+            if (isOneClickExperience) {
+                return;
+            }
+
+
+            isOneClickExperience = true;
+
+
+            /*
+             * 一键体验开始时播放片尾音乐。
+             */
+            if (!isPlaying) {
+                startMusic();
+            }
+
+
+            /* -----------------------------------------------------
+               第一阶段：单词打卡
+               ----------------------------------------------------- */
+
+            switchPage('vocab');
+
+
+            const vocabWidget =
+                document.getElementById(
+                    'autoPlayVocabWidget'
+                );
+
+
+            if (vocabWidget) {
+                vocabWidget.classList.add('active');
+            }
+
+
+            const vocabCompleted =
+                await runVocabAutoPlayLoop(true);
+
+
+            /*
+             * 如果第一阶段没有完整结束，
+             * 一键体验立即结束，不进入剧场。
+             */
+            if (!vocabCompleted) {
+
+                isRunningVocabAuto = false;
+                isRunningAuto = false;
+                isOneClickExperience = false;
+
+                return;
+
+            }
+
+
+            /* -----------------------------------------------------
+               第一阶段完成，准备进入第二阶段
+               ----------------------------------------------------- */
+
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+
+
+            /* -----------------------------------------------------
+               第二阶段：自动剧场
+               ----------------------------------------------------- */
+
+            switchPage('theater');
+
+
+            const theaterWidget =
+                document.getElementById(
+                    'autoPlayWidget'
+                );
+
+
+            if (theaterWidget) {
+                theaterWidget.classList.add('active');
+            }
+
+
+            const theaterCompleted =
+                await runAutoPlayLoop(
+                    AUTO_START_DELAY,
+                    true
+                );
+
+
+            /*
+             * 如果用户在自动剧场阶段手动关闭，
+             * 保持当前剧场页面，不进行额外跳转。
+             */
+            if (!theaterCompleted) {
+
+                isRunningVocabAuto = false;
+                isRunningAuto = false;
+                isOneClickExperience = false;
+
+                return;
+
+            }
+
+
+            /* -----------------------------------------------------
+               一键体验完整正常结束
+               ----------------------------------------------------- */
+
+            isRunningVocabAuto = false;
+            isRunningAuto = false;
+            isOneClickExperience = false;
+
+        }
+
+
+        /* =========================================================
+           ===================== 页面初始化 ========================
+           ========================================================= */
+
+        window.addEventListener(
+            'load',
+            () => {
+
+                switchPage('home');
+
+            }
+        );
+
+
+        /*
+         * 用户第一次与页面交互时，
+         * 如果自动模式已经处于运行状态，
+         * 尝试启动音乐。
+         *
+         * 保留原有逻辑，用于应对浏览器自动播放限制。
+         */
+        document.body.addEventListener(
+            'click',
+            function initAudioOnInteract() {
+
+                if (
+                    !isPlaying &&
+                    (
+                        autoPlayActive ||
+                        autoPlayVocabActive
+                    )
+                ) {
+
+                    startMusic();
+
+                }
+
+            },
+            {
+                once: true
+            }
+        );
+
+    </script>
+
+</body>
+</html>
